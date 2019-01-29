@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>form</title>
+</head>
+<body>
+<form>
+	First name:<br>
+	<input type="text" id="firstname">
+	<br><br>
+	Last name:<br>
+	<input type="text" id="lastname"><br><br>
+	Email:<br>
+	<input type="email" id="email"><br><br>
+	Contact Number:<br>
+	<input type="number" id="contactnumber"><br><br>
+	Address:<br/>
+	<textarea id="address" rows="2" cols="20"></textarea><br/><br>
+	Username:<br>
+	<input type="text" id="username"><br><br>
+	Password:<br>
+	<input type="password" id="psw"><br><br>
+	 Gender:<br> 
+	 <input type ="radio" id="male" name="gender" value="male">Male<br>
+	<input type ="radio" id="female" name="gender" value="female">female<br><br>
+	Qualification:<br>
+	<select id="Qualifications" class="Qualification">
+		<option value="">--select--</option>
+	</select><br><br>
+	
+	Experience:<br>
+	<select id="Experiences">
+		<option value="">--select--</option>
+	</select><br><br>
+	Coding Languages:<br>
+	<div id="check_box" class="check_box"></div>
+	<!-- <input type="checkbox" name=prefs value="c/c++">C/C++</br> -->
+	<!-- <input type="checkbox" name=prefs value="Java">Java/br> -->
+	<!-- <input type="checkbox" name=prefs value="C#">C#</br> -->
+	<!-- <input type="checkbox" name=prefs value="PHP">PHP</br> -->
+	<!-- <input type="checkbox" name=prefs value="Python">Python</br><br> -->
+	
+	<input type="Submit" value="Submit" onclick="show_in_console()">
+</form>
+<script>
+	function add_option(select,arr){
+		for(var i = 0; i < arr.length; i++) {
+			var opt = document.createElement('option');
+			opt.innerHTML = arr[i];
+			opt.value = arr[i];
+			select.appendChild(opt);
+			}
+		}
+	var q = ["10th","12th","B.TECH","B.SC","B.COM"],
+	exp = ["1yr","2yr","3yr","4yr","5yr"],	
+	sel1 = document.getElementById("Qualifications"),
+	sel2 =  document.getElementById("Experiences");
+	    
+	add_option(sel2,exp);
+	add_option(sel1,q);
+function add_check_boxes(select)
+{
+	var languages = [{LanguageName:"Java",IsEnabled:true},{LanguageName:"c/c++",IsEnabled:false},{LanguageName:"php",IsEnabled:false},
+	{LanguageName:"python",IsEnabled:false},{LanguageName:"C#",IsEnabled:true}];
+	
+	 for (var i in languages) {
+            var pair = languages[i].LanguageName;
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "language";
+			checkbox.id = pair;
+			checkbox.value = pair;
+			if(languages[i].IsEnabled===true)
+			{
+				checkbox.setAttribute('checked',true);
+			}
+			else
+			{
+			checkbox.value = pair;
+			}
+			select.appendChild(checkbox);
+    
+            var label = document.createElement('label')
+            label.htmlFor = pair;
+            label.appendChild(document.createTextNode(pair));
+
+            select.appendChild(label);
+            select.appendChild(document.createElement("br"));    
+        }
+    }
+select=document.getElementById("check_box");
+add_check_boxes(select);
+
+function show_in_console()
+{
+	var myobject={
+	firstname:document.getElementById("firstname").value,
+	lastname:document.getElementById("lastname").value,
+	email:document.getElementById("email").value,
+	Address:document.getElementById("address").value,
+	UserName:document.getElementById("username").value,
+	Userpsd:document.getElementById("psw").value,
+	qualification:get_Qualification_value(),
+	experience:get_Experience_value(),
+	gender:get_gender_value(),
+	coding_languages:get_checked_value()
+	};
+	
+	
+	console.log("first_name:"+myobject.firstname);
+	console.log("last_name:"+myobject.lastname);
+	console.log("email:"+myobject.email);
+	console.log("address:"+myobject.Address);
+	console.log("username:"+myobject.UserName);
+	console.log("password:"+myobject.Userpsd);
+	console.log("qualification:"+myobject.qualification);
+	console.log("experience:"+myobject.experience);
+	console.log("gender:"+myobject.gender);
+	console.log("coding_language:"+myobject.coding_languages);
+	
+}
+
+function get_Qualification_value()
+{
+	var e = document.getElementById("Qualifications");
+	var value = e.options[e.selectedIndex].value;
+	return value;
+}
+function get_Experience_value()
+{
+	var e = document.getElementById("Experiences");
+	var value = e.options[e.selectedIndex].value;
+	return value;
+}
+function get_gender_value()
+{
+var val="";
+	if(document.getElementById("male").checked)
+	{
+		val="male";
+		}
+		else{
+		val="female";
+		}
+		return val;
+}
+var str="";
+function get_checked_value()
+{
+	var str="";
+	var checks = document.getElementsByName("language");
+	for(var i in checks)
+	{
+		  if ( checks[i].checked === true ) 
+		  {
+			str+=checks[i].value + ",";
+			<!-- alert(checks[i].value); -->
+			}
+	}
+
+	return str;
+}
+</script>
+</body>
+</html>
